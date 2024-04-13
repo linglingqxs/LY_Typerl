@@ -6,12 +6,12 @@ import ly.qr.kiarelemb.data.Keys;
 import ly.qr.kiarelemb.data.TypingData;
 import ly.qr.kiarelemb.qq.WindowAPI;
 import method.qr.kiarelemb.utils.QRThreadBuilder;
-import org.apache.commons.collections4.ListUtils;
 import swing.qr.kiarelemb.component.basic.QRRoundButton;
 import swing.qr.kiarelemb.window.enhance.QRSmallTipShow;
 
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -51,13 +51,8 @@ public class GroupButton extends QRRoundButton {
         //放线程就不会卡
         GROUP_CHANGE.submit(() -> {
             ArrayList<String> windows = WindowAPI.getQQWindows();
-            if (!ListUtils.isEqualList(this.windows, windows)) {
-                if (this.groupName() != null) {
-                    this.groupIndex = windows.indexOf(this.groupName());
-                }
-                this.windows.clear();
-                this.windows.addAll(windows);
-            }
+            this.windows.clear();
+            this.windows.addAll(windows);
             int size = this.windows.size();
             if (size == 0) {
                 this.setGroupLinked(false);
